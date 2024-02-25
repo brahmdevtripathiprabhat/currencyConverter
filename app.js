@@ -3,7 +3,7 @@ const dropdown= document.querySelectorAll(".dropdown select");
  const btn=document.querySelector(" form button");
 const fromcurr=document.querySelector(".from select");
 const tocurr= document.querySelector(".to select");
-
+const msg= document.querySelector(".msg");
 
  for( let select of dropdown){
 for(currcode in countryList){
@@ -41,8 +41,11 @@ amtvalue=1;
 amount.value="1";
 }
 console.log(fromcurr.value,tocurr.value);
-const URL=`${baseurl}/${fromcurr.value.toLowercase}/${tocurr.value.toLowercase}.json`;
+const URL=`${baseurl}/${fromcurr.value.toLowerCase()}/${tocurr.value.toLowerCase()}.json`;
 let response=  await fetch(URL);
-console.log(response);
+let data= await response.json();
+let rate= data[tocurr.value.toLowerCase()];
+let finalamt=amtvalue*rate;
+msg.innerText=`${amtvalue} ${fromcurr.value}=${finalamt} ${tocurr.value}`;
 });
 
